@@ -25,7 +25,10 @@ class SimpleUiTest {
         val monkeyGenerator = MonkeyGenerator(device)
         for (step in 0..STEPS_NUMBER) {
             openApplicationIfRequired()
-            monkeyGenerator.generateAction()()
+            val action = monkeyGenerator.generateAction()
+            try {
+                action()
+            } catch (e: StaleObjectException) { monkeyGenerator.clear() }
         }
     }
 
@@ -46,7 +49,7 @@ class SimpleUiTest {
     companion object {
         // TODO add package name
         const val APPLICATION_PACKAGE = "com.avjindersinghsekhon.minimaltodo"
-        const val STEPS_NUMBER = 100;
+        const val STEPS_NUMBER = 50
         const val LONG_WAIT = 5000L
     }
 }
