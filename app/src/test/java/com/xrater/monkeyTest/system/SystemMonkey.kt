@@ -2,7 +2,6 @@ package com.xrater.monkeyTest.system
 
 import androidx.test.uiautomator.*
 import com.xrater.monkeyTest.SimpleUiTest
-import com.xrater.monkeyTest.model.Model
 import com.xrater.monkeyTest.net.NetElement
 import com.xrater.monkeyTest.net.NetMonkey
 import com.xrater.monkeyTest.net.NetState

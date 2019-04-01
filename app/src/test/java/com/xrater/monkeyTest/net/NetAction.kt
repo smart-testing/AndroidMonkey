@@ -1,7 +1,6 @@
 package com.xrater.monkeyTest.net
 
+import org.json.JSONObject
 
-class NetAction {
 
-
-}
+data class NetAction(val type: String, val data: JSONObject)

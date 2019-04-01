@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder
 
 class NetElement(element: SystemElement) {
 
+    val center = element.obj.visibleCenter
     val isCheckable: Boolean = element.obj.isCheckable
     val isClickable: Boolean = element.obj.isClickable
     val isFocusable: Boolean = element.obj.isFocusable

@@ -6,7 +6,7 @@ import com.xrater.monkeyTest.net.NetState
 
 class Model {
 
-    fun getState(state: NetState) : State {
+    fun getState(state: NetState) : State? {
         TODO()
     }
 
