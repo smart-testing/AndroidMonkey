@@ -12,8 +12,8 @@ class NetElement(element: SystemElement) {
     val isClickable: Boolean = element.obj.isClickable
     val isFocusable: Boolean = element.obj.isFocusable
     val isLongClickable: Boolean = element.obj.isLongClickable
-    val resourceName: String = element.obj.resourceName
-    val className: String = element.obj.className
+    val resourceName: String? = element.obj.resourceName
+    val className: String? = element.obj.className
 
     override fun equals(other: Any?): Boolean {
         return if (other is NetElement) {

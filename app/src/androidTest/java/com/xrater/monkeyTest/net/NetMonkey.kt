@@ -1,7 +1,6 @@
 package com.xrater.monkeyTest.net
 
 import com.xrater.monkeyTest.model.Model
-import java.lang.RuntimeException
 import java.util.*
 
 
