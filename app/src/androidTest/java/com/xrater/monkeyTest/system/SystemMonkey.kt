@@ -12,8 +12,11 @@ class SystemMonkey(private val device: UiDevice) : Monkey {
 
     private val model: NetMonkey = NetMonkey()
 
-    override fun generateAction(): SystemAction {
-        val netState = buildState()
+    override fun generateAction(): SystemAction? {
+        val netState: NetState
+        try {
+             netState = buildState()
+        } catch (e: StaleObjectException) { return null }
         val action = model.generateAction(netState)
         return SystemAction(action, device)
     }

@@ -26,7 +26,7 @@ class SimpleUiTest {
         val monkey = SystemMonkey(device)
         for (step in 0 until STEPS_NUMBER) {
             openApplicationIfRequired()
-            val action = monkey.generateAction()
+            val action = monkey.generateAction() ?: continue
             try {
                 action.perform()
             } catch (e: StaleObjectException) {}

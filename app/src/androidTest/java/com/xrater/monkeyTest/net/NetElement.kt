@@ -1,19 +1,20 @@
 package com.xrater.monkeyTest.net
 
+import android.graphics.Point
 import com.xrater.monkeyTest.system.SystemElement
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 
 
-class NetElement(element: SystemElement) {
-
-    val center = element.obj.visibleCenter
-    val isCheckable: Boolean = element.obj.isCheckable
-    val isClickable: Boolean = element.obj.isClickable
-    val isFocusable: Boolean = element.obj.isFocusable
-    val isLongClickable: Boolean = element.obj.isLongClickable
-    val resourceName: String? = element.obj.resourceName
-    val className: String? = element.obj.className
+data class NetElement(
+    val center : Point,
+    val isCheckable: Boolean,
+    val isClickable: Boolean,
+    val isFocusable: Boolean,
+    val isLongClickable: Boolean,
+    val resourceName: String?,
+    val className: String?
+) {
 
     override fun equals(other: Any?): Boolean {
         return if (other is NetElement) {

@@ -16,7 +16,10 @@ class StateProcessor {
         if (element.isClickable) {
             val center = element.center
             val json = JSONObject()
-            json.put("position", mapOf("x" to center.x, "y" to center.y))
+            val positionJson = JSONObject()
+            positionJson.put("x", center.x)
+            positionJson.put("y", center.y)
+            json.put("position", positionJson)
             actions.add(NetAction("TAP", json))
         }
     }
