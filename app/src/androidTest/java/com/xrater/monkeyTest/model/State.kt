@@ -6,21 +6,51 @@ import java.util.stream.Collectors
 
 class State(actions: List<NetAction>) {
 
-    private val actions: MutableList<Action> = actions.stream()
+    val actions: MutableList<Action> = actions.stream()
         .map { action -> Action(action) }
         .peek { action -> action.from = this }
         .collect(Collectors.toList())
+
+    var interest = actions.size
 
     fun link(action: Action, to: State?) {
         if (!actions.contains(action) || action.from != this) {
             throw Exception("No such action for state")
         }
         action.to = if (action.to != null && action.to != to) null else to
+        interest = evaluateInterest()
     }
 
     fun generateAction(): Action {
-        val unknown = actions.filter { action -> action.to == null }
-        return if (unknown.isEmpty()) actions.random() else unknown.random()
+        return actions.stream()
+            .max { a1, a2 ->
+                run {
+                    val firstStateSnapshot = a1.to
+                    val secondStateSnapshot = a2.to
+                    if (firstStateSnapshot == null) {
+                        1
+                    } else {
+                        if (secondStateSnapshot == null) {
+                            -1
+                        } else {
+                            firstStateSnapshot.interest - secondStateSnapshot.interest
+                        }
+                    }
+                }
+            }.orElseThrow { Exception() }
+    }
+
+    private fun evaluateInterest(): Int {
+        var newInterest = 0
+        actions.stream()
+            .forEach { action ->
+                run {
+                    if (action.to == null) {
+                        newInterest += 1
+                    }
+                }
+            }
+        return newInterest
     }
 
 }
