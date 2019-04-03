@@ -4,7 +4,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 
 
-class NetState(val elements: List<NetElement>) {
+class NetState(unsortedElements: List<NetElement>) {
+
+    val elements = unsortedElements.sorted()
 
     override fun equals(other: Any?): Boolean {
         return if (other is NetState) {

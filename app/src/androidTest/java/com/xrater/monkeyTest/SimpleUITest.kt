@@ -50,7 +50,7 @@ class SimpleUiTest {
     companion object {
         // TODO add package name
         const val APPLICATION_PACKAGE = "com.avjindersinghsekhon.minimaltodo"
-        const val STEPS_NUMBER = 50
+        const val STEPS_NUMBER = 500
         const val LONG_WAIT = 5000L
     }
 }

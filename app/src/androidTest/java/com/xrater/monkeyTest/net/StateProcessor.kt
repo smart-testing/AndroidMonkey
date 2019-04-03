@@ -2,7 +2,6 @@ package com.xrater.monkeyTest.net
 
 import org.json.JSONObject
 
-
 class StateProcessor {
 
     fun getActions(state: NetState) : List<NetAction> {
