@@ -23,20 +23,4 @@ class State(actions: List<NetAction>) {
         return if (unknown.isEmpty()) actions.random() else unknown.random()
     }
 
-//    override fun equals(other: Any?): Boolean {
-//        return if (other is State) {
-//            EqualsBuilder()
-//                .append(netState, other.netState)
-//                .isEquals
-//        } else {
-//            false
-//        }
-//    }
-//
-//    override fun hashCode(): Int {
-//        return HashCodeBuilder()
-//            .append(netState)
-//            .toHashCode()
-//    }
-
 }

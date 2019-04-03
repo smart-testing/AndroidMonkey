@@ -1,7 +1,6 @@
 package com.xrater.monkeyTest.net
 
 import com.xrater.monkeyTest.model.Model
-import java.util.*
 
 
 class NetMonkey {
@@ -9,11 +8,7 @@ class NetMonkey {
     private val model = Model()
     private val stateProcessor = StateProcessor()
 
-    private val random = Random()
-
     fun generateAction(netState: NetState): NetAction {
-//        val actions = stateProcessor.getActions(netState)
-//        return actions[random.nextInt(actions.size)]
         val state = model.getState(netState)
         if (state == null) {
             val actions = stateProcessor.getActions(netState)

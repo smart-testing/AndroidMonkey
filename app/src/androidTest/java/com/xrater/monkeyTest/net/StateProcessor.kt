@@ -8,6 +8,7 @@ class StateProcessor {
         val actions = mutableListOf<NetAction>()
         state.elements.stream()
             .forEach  { element -> addActionsToList(actions, element) }
+        actions.add(NetAction("SKIP", JSONObject()))
         return actions
     }
 
