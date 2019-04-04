@@ -6,51 +6,63 @@ import java.util.stream.Collectors
 
 class State(actions: List<NetAction>) {
 
-    val actions: MutableList<Action> = actions.stream()
+    private val toActions: MutableList<Action> = mutableListOf()
+
+    private val actions: MutableList<Action> = actions.stream()
         .map { action -> Action(action) }
         .peek { action -> action.from = this }
         .collect(Collectors.toList())
 
-    var interest = actions.size
+    var metric = Int.MAX_VALUE
 
-    fun link(action: Action, to: State?) {
+    fun link(action: Action, to: State) {
         if (!actions.contains(action) || action.from != this) {
             throw Exception("No such action for state")
         }
-        action.to = if (action.to != null && action.to != to) null else to
-        interest = evaluateInterest()
+        val toActionSnapshot = action.to
+        if (toActionSnapshot != null) {
+            if (toActionSnapshot != to) {
+                action.to = null
+                update()
+            }
+        } else {
+            action.to = to
+            to.toActions.add(action)
+            update()
+        }
     }
 
     fun generateAction(): Action {
         return actions.stream()
-            .max { a1, a2 ->
-                run {
-                    val firstStateSnapshot = a1.to
-                    val secondStateSnapshot = a2.to
-                    if (firstStateSnapshot == null) {
-                        1
-                    } else {
-                        if (secondStateSnapshot == null) {
-                            -1
-                        } else {
-                            firstStateSnapshot.interest - secondStateSnapshot.interest
-                        }
-                    }
-                }
-            }.orElseThrow { Exception() }
+            .min { a1, a2 -> a1.compareTo(a2) }
+            .orElseThrow { Exception("Action not found") }
+    }
+
+    private fun update() {
+        val prevMetric = metric
+        val newMetric = evaluateInterest()
+        if (newMetric != prevMetric) {
+            metric = newMetric
+            for (action in toActions) {
+                action.from?.update()
+            }
+        }
     }
 
     private fun evaluateInterest(): Int {
-        var newInterest = 0
+        var newMetric = Int.MAX_VALUE
         actions.stream()
             .forEach { action ->
                 run {
-                    if (action.to == null) {
-                        newInterest += 1
+                    val toActionSnapshot = action.to
+                    if (toActionSnapshot == null) {
+                        newMetric = 1
+                    } else {
+                        newMetric = Math.min(newMetric, toActionSnapshot.metric + 1)
                     }
                 }
             }
-        return newInterest
+        return newMetric
     }
 
 }
